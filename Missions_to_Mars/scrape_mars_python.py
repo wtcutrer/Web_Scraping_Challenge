@@ -151,5 +151,14 @@ def scrape():
 
 # %%
     browser.quit()
-
+    
+    conn = 'mongodb://localhost:27017'
+    client = pymongo.MongoClient(conn)
+    db = client.planetDB
+    mars = db.mars
+    db.mars.insert_one(mars_data)
     return mars_data
+
+if __name__ == "__main__":
+    mars = scrape()
+    print(mars)
