@@ -53,7 +53,6 @@ def scrape():
     images_url = 'https://spaceimages-mars.com/'
     browser.visit(images_url)
 
-
 # %%
 # Retrieve page
     images_retrieve = requests.get(images_url)
@@ -62,15 +61,21 @@ def scrape():
     images_soup = BeautifulSoup(images_retrieve.text, 'html.parser')
 
     images_html = browser.html
-    images_results = BeautifulSoup(images_html, 'html.parser')
+    soup = BeautifulSoup(images_html, 'html.parser')
 
-
+    for div in soup.find_all('div', class_='floating_text_area'):
+        a = div.find('a')
+        image = a['href']
+    
+    # Get the featured image url
+    featured_image_url = 'https://spaceimages-mars.com/' + image
+    
 # %%
 # Retrieve Current Header Image from URL 
-    featured_image = images_results.find('img', class_='headerimage')
-    featured_image = featured_image['src']
+    # featured_image = images_results.find('img', class_='headerimage')
+    # featured_image = featured_image['src']
 
-    print(featured_image)
+    # print(featured_image)
 
 # Mars Facts
 #--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,8 +83,7 @@ def scrape():
 # %%
 # Source Scrape URL 
     facts_url = 'https://galaxyfacts-mars.com/'
-
-
+    
 # %%
     tables = pd.read_html(facts_url)
     tables
@@ -144,7 +148,7 @@ def scrape():
     mars_data = {
         "news_title": news_title,
         "news_sub_heading": news_teaser,
-        "featured_image": featured_image,
+        "featured_image": featured_image_url,
         "mars_facts_table" : facts_html,
         "hemispheres_images": hemisphere_image_urls
     }

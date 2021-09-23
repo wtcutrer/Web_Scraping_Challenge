@@ -9,25 +9,72 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
+</head>
 
-  <body>
-    <div class="container-fluid">
-
-        <div class="jumbotron text-center">
-            <h1>Mission to Mars</h1>
-            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="header"><b>Latest Mars News</b></h2>
-                    <h3 class="headline">{{mars.news_title}}</h3>
-                    <p><b>{{mars.news_summary}}</b></p>
-                </div>
+<body>
+    <div class="container">
+  
+      <div class="jumbotron text-center">
+        <h1>Mission to Mars</h1>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+      </div>
+  
+      <!-- Mars News -->
+      <div class="row" id="mars_news">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="media-body">
+              <h2>Latest Mars News</h2>
+              <h4 class="media-heading">{{mars.news_title}}</h4>
+              <p>{{mars.news_sub_heading}}</p>
             </div>
+          </div>
         </div>
+      </div>
+  
+  
+  
+      <!-- Mars Featured Image -->
+      <div class="row" id="featured_image">
+        <div class="col-md-8">
+          <h2>Featured Mars Image</h2>
+            <!-- if images is False/None/non-existent, then default to error message -->
+            <img src="{{mars.featured_image | default('static/images/error.png', true) }}" class="img-responsive"
+            alt="Responsive image">
+        </div>
+  
+        <div class="col-md-4">
+          <!-- Mars Facts -->
+          <div class="row" id="mars-facts">
+            <div class="col-md-12">
+              <h4>Mars Facts</h4>
+              {{mars.mars_facts_table| safe}}
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+      <!-- Mars Hemispheres -->
+      <div class="row" id="hemispheres_images" style="margin-top:80px;">
+        <div class="page-header">
+          <h2 class="text-center">Mars Hemispheres</h2>
+        </div>
+        {% for hemisphere in mars.hemispheres %}
+          <div class="col-md-6">
+              <div class="thumbnail">
+              <!-- if images is False/None/non-existent, then default to error message -->
+              <img src="{{mars.hemispheres_images | default('static/images/error.png', true)}}"
+                  alt="...">
+              <div class="caption">
+                  <h3>{{hemispheres_images.title}}</h3>
+              </div>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+  
+    </div>
 </body>
-
 </html>
