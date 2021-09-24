@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission to Mars</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Mission To Mars</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.css">
+        <link rel="stylesheet" href="Resources/assets/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    </head>
 
 <body>
     <div class="container">
@@ -19,9 +26,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="header"><b>Latest Mars News</b></h2>
-                    <h3 class="headline">{{mars.news_title}}</h3>
-                    <p><b>{{mars.news_sub_heading}}</b></p>
+                    <h2 class="lead display-3 text-left"><b>Latest Mars News</b></h2>
+                    <h3 class="display-5">{{mars.news_title}}</h3>
+                    <h4>{{mars.news_summary}}</h4>
+                    <p>{{mars_info}}</p>
                 </div>
             </div>
         </div>
@@ -32,10 +40,10 @@
                     <h2 class="header"><b>Featured Mars Image</b></h2>
                     <img class="img-fluid" src={{mars.featured_image}} alt="Mars Featured Image">
                 </div>
-                <div class="col-md-5">
-                    <h3 class="headline"><b>Mars Facts</b></h3>
-                    <div class="container">
-                        {{mars.mars_facts_table|safe}}
+                <div class="card" style="width: 20rem" align="center">
+                    <div class="card-body">
+                        <h3 class="card-title">Mars vs Earth</h3>
+                        {{mars.mars_facts|safe}}
                     </div>
                 </div>
             </div>
@@ -45,18 +53,18 @@
             <hr>
             <div>
 
-                    {% for item in mars.hemispheres %}
+                {% for item in mars.hemispheres %}
 
-                    <div class="col-lg-3">
-                        <div class="card" style="width: 25rem;">
-                            <img src={{mars.hemispheres_images}} class="card-img-top" width="200" height="200">
-                            <div class="card-body">
-                                <h4 class="card-title"><b>{{ mars.hemispheres_images }}</b></h4>
-                            </div>
+                <div class="col-lg-3">
+                    <div class="card" style="width: 25rem;">
+                        <img src={{item.image_url}} class="card-img-top" alt={{item.title}} width="200" height="200">
+                        <div class="card-body">
+                            <h4 class="card-title"><b>{{ item.title }}</b></h4>
                         </div>
                     </div>
+                </div>
 
-                    {% endfor %}
+                {% endfor %}
 
             </div>
 
